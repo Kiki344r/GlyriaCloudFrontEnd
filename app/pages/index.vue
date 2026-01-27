@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-black">
+  <div class="bg-blue-500">
     <Topbar />
     <HeroSection />
   </div>
