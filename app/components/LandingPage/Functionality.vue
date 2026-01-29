@@ -1,5 +1,8 @@
 <template>
-  <div class="bg-dark flex flex-col gap-6 p-10 text-white">
+  <section
+    id="fonctionnalites"
+    class="bg-dark flex flex-col gap-6 p-10 py-15 text-white"
+  >
     <div>
       <h2 class="text-center text-3xl font-semibold">
         Fonctionnalités puisssantes
@@ -172,7 +175,7 @@
         </div>
       </div>
     </div>
-  </div>
+  </section>
 </template>
 
 <script setup lang="ts">
