@@ -1,6 +1,6 @@
 <template>
-  <div class="bg-dark">
-    <div class="flex flex-col gap-6 p-10 text-white">
+  <div class="bg-dark grid lg:grid-cols-2 grid-cols-1 lg:grid-rows-1 grid-rows-2 lg:flex-row lg:items-center gap-6 px-40 py-10 text-white">
+    <div class="flex flex-col gap-6 text-white">
       <h2 class="text-start text-3xl font-semibold">
         Pourquoi choisir Glyria Cloud ?
       </h2>
@@ -50,7 +50,7 @@
         </div>
       </div>
     </div>
-    <div class="flex flex-col gap-6 p-10 text-white bg-dark/10 grid grid-cols-2 md:grid-cols-4">
+    <div class="gap-6 p-10 text-white bg-dark/10 grid lg:grid-cols-2 lg:grid-rows-2 grid-cols-2">
       <div class="flex flex-col items-center justify-center bg-linear-120 from-primary/60 to-primary/50 border border-primary rounded-lg p-5 gap-2">
         <UIcon
           name="solar:cpu-linear"
