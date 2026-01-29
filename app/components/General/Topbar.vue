@@ -2,7 +2,7 @@
   <div class="fixed z-100 top-0 left-0 w-full h-16 bg-dark shadow-xl shadow-cyan-50/10 flex items-center justify-around text-white">
     <a
       class="flex items-center gap-4"
-      href="/"
+      href="/public"
     >
       <lazy-nuxt-img
         src="/glyria-logo.png"
