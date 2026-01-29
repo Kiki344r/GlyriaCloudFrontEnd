@@ -3,11 +3,11 @@
     <div class="absolute top-1/10 right-1/5 w-96 h-96 bg-blue-600/10 rounded-full blur-3xl animate-pulse" />
     <div class="absolute bottom-1/10 left-1/5 w-96 h-96 bg-purple-600/10 rounded-full blur-3xl animate-pulse " />
 
-    <div class="flex flex-col min-h-screen grid-background items-center justify-center gap-4">
+    <div class="flex flex-col min-h-screen grid-background items-center justify-center gap-6">
       <h1 class="text-4xl w-xl max-w-screen text-center text-white slide-up">
         Apprends Linux simplement avec <span class="bg-linear-to-l from-primary to-secondary bg-clip-text text-transparent text-5xl font-semibold">Glyria Cloud</span>.
       </h1>
-      <div class="flex flex-wrap gap-4">
+      <div class="flex justify-center flex-wrap gap-4">
         <UButton
           color="neutral"
           label="Commencer gratuitement"
