@@ -9,6 +9,12 @@ export default defineAppConfig({
       error: 'red',
       neutral: 'slate',
       accent: 'pink'
+    },
+    footerColumns: {
+      slots: {
+        label: 'text-white',
+        linkLabel: 'text-gray-400 hover:text-white transition-colors'
+      }
     }
   }
 })
