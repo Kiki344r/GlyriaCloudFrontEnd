@@ -7,7 +7,7 @@
       <h1 class="text-4xl w-xl max-w-screen text-center text-white slide-up">
         Apprends Linux simplement avec <span class="bg-linear-to-l from-primary to-secondary bg-clip-text text-transparent text-5xl font-semibold">Glyria Cloud</span>.
       </h1>
-      <div class="flex gap-4">
+      <div class="flex flex-wrap gap-4">
         <UButton
           color="neutral"
           label="Commencer gratuitement"
