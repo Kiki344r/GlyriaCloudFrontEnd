@@ -24,3 +24,7 @@ body {
 .bg-dark {
   background-color: var(--eerie-black);
 }
+
+html {
+    scroll-behavior: smooth;
+}
