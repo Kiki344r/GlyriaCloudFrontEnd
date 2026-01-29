@@ -1,5 +1,8 @@
 <template>
-  <div class="bg-dark flex justify-center p-15">
+  <section
+    id="commencer-maintenant"
+    class="bg-dark flex justify-center p-15 py-40"
+  >
     <div class="flex flex-col items-center gap-6 p-10 text-white bg-gradient-to-br from-secondary/40 to-primary/30 rounded-2xl shadow-xl shadow-cyan-50/10 max-w-[1000px] w-[100%]">
       <h2 class="text-5xl font-semibold text-center">
         Lancez-vous dès maintenant
@@ -13,7 +16,7 @@
         color="primary"
         variant="solid"
         label="Inscription gratuite"
-        class="hover:scale-105 cursor-pointer transition duration-300 ease-in-out justify-center w-60 p-4 text-lg font-semibold rounded-lg shadow-xl shadow-cyan-50/10"
+        class="hover:scale-105 hover:rotate-2 cursor-pointer transition duration-300 ease-in-out justify-center w-60 p-4 text-lg font-semibold rounded-lg shadow-xl shadow-cyan-50/10"
         to="/register"
       />
 
@@ -21,7 +24,7 @@
         Aucune carte bancaire requise
       </p>
     </div>
-  </div>
+  </section>
 </template>
 
 <script setup lang="ts">
