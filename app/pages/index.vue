@@ -6,6 +6,7 @@
     <LandingPageFunctionality />
     <LandingPageWhyUs />
     <LandingPageStartNow />
+    <GeneralFooter />
   </div>
 </template>
 
