@@ -9,7 +9,7 @@
       </p>
     </div>
 
-    <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+    <div class="lg:w-[80%] py-3 grid gap-6 md:grid-cols-2 lg:grid-cols-3 self-center">
       <div class="group relative overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-br from-white/10 to-white/5 p-6 backdrop-blur transition hover:-translate-y-1 hover:border-secondary/40 hover:shadow-lg hover:shadow-secondary/10">
         <UIcon
           name="mdi:server"

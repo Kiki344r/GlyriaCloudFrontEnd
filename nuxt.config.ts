@@ -3,23 +3,20 @@ export default defineNuxtConfig({
   modules: [
     '@nuxt/ui',
     '@nuxt/eslint',
-    '@nuxt/image',
-    '@nuxt/hints',
-    '@nuxt/a11y'
+    '@nuxt/image'// ,
+    // '@nuxt/hints',
+    // '@nuxt/a11y'
   ],
-  ssr: true,
+  ssr: false,
 
   devtools: {
     enabled: true
   },
 
-  css: ['~/assets/css/tailwind.css'],
+  css: ['~/assets/css/main.css'],
 
   ui: {
-    colorMode: false,
-    experimental: {
-      componentDetection: true
-    }
+    colorMode: false
   },
 
   tailwindcss: {
