@@ -1,5 +1,8 @@
 <template>
-  <div class="bg-dark">
+  <section
+    id="#"
+    class="bg-dark"
+  >
     <div class="absolute top-1/10 right-1/5 w-96 h-96 bg-blue-600/10 rounded-full blur-3xl animate-pulse" />
     <div class="absolute bottom-1/10 left-1/5 w-96 h-96 bg-purple-600/10 rounded-full blur-3xl animate-pulse " />
 
@@ -13,14 +16,14 @@
           label="Commencer gratuitement"
           variant="subtle"
           size="xl"
-          class="cursor-pointer"
+          class="cursor-pointer hover:scale-105 hover:rotate-2 transition duration-300 ease-in-out"
         />
         <UButton
           color="secondary"
           label="Explorer la plateforme"
           variant="soft"
           size="xl"
-          class="cursor-pointer"
+          class="cursor-pointer hover:scale-105 hover:rotate-2 transition duration-300 ease-in-out"
         />
       </div>
       <div class="flex gap-4 mt-8 flex-wrap justify-center">
@@ -41,7 +44,7 @@
         </div>
       </div>
     </div>
-  </div>
+  </section>
 </template>
 
 <script setup lang="ts">
