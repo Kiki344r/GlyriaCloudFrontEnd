@@ -24,3 +24,5 @@ logs
 !.env.example
 
 api token proxmox.txt
+app.tar
+.editorconfig
