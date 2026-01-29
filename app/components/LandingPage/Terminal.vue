@@ -1,5 +1,8 @@
 <template>
-  <div class="flex flex-col bg-dark items-center gap-4 py-10">
+  <section
+    id="terminal"
+    class="flex flex-col items-center bg-dark gap-4 py-20"
+  >
     <div class="flex flex-col w-[80%] max-w-[1200px] border border-white/30 rounded-lg overflow-hidden">
       <div class="flex flex-col gap-2 p-4 pb-2">
         <div class="flex gap-2 w-full items-center">
@@ -13,11 +16,11 @@
         <USeparator />
       </div>
       <div
-        id="terminal"
+        id="terminal_ex"
         class="h-114 w-full p-2"
       />
     </div>
-  </div>
+  </section>
 </template>
 
 <script setup lang="ts">
@@ -26,7 +29,7 @@ import { FitAddon } from '@xterm/addon-fit'
 import '@xterm/xterm/css/xterm.css'
 
 onMounted(() => {
-  const terminal = document.getElementById('terminal')
+  const terminal = document.getElementById('terminal_ex')
   if (!terminal) return
 
   terminal.innerHTML = ''
