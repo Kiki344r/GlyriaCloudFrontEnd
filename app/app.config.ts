@@ -15,6 +15,12 @@ export default defineAppConfig({
         label: 'text-white',
         linkLabel: 'text-gray-400 hover:text-white transition-colors'
       }
+    },
+    authForm: {
+      slots: {
+        title: 'text-white',
+        description: 'text-gray-400'
+      }
     }
   }
 })

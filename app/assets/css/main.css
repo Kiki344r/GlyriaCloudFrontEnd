@@ -21,6 +21,10 @@ body {
   --color-green-950: #052E16;
 }
 
+:root {
+    --ui-text: #ffffff;
+}
+
 .bg-dark {
   background-color: var(--eerie-black);
 }
