@@ -12,7 +12,7 @@
       </h1>
       <div class="flex justify-center flex-wrap gap-4">
         <UButton
-          color="neutral"
+          color="primary"
           label="Commencer gratuitement"
           variant="subtle"
           size="xl"
