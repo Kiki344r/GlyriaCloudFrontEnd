@@ -2,7 +2,7 @@
   <div class="fixed z-100 top-0 left-0 w-full h-16 bg-dark shadow-xl shadow-cyan-50/10 flex items-center justify-around text-white">
     <a
       class="flex items-center gap-4 hover:rotate-2 hover:scale-110 transition duration-300 ease-in-out"
-      href="/public"
+      href="/"
     >
       <lazy-nuxt-img
         src="/glyria-logo.png"
@@ -36,9 +36,9 @@
         color="primary"
         variant="solid"
         size="lg"
-        *
         label="Se connecter"
         class="cursor-pointer"
+        to="/login"
       />
     </div>
   </div>
