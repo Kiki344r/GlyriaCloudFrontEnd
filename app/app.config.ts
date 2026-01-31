@@ -21,6 +21,13 @@ export default defineAppConfig({
         title: 'text-white',
         description: 'text-gray-400'
       }
+    },
+    toast: {
+      slots: {
+        root: 'bg-dark ring-2 ring-gray-400/20',
+        title: 'text-white',
+        description: 'text-gray-400'
+      }
     }
   }
 })
