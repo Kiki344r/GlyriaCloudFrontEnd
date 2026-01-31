@@ -53,45 +53,62 @@
 import * as z from 'zod'
 import type { FormSubmitEvent, AuthFormField } from '@nuxt/ui'
 
-const { Login } = useAuth()
-const toast = useToast()
+const { Register } = useAuth()
 
 const registerError = ref('')
 const registerLoading = ref(false)
 
 const schema = z.object({
+  firstName: z.string('First name is required'),
+  lastName: z.string('Last name is required'),
   email: z.email('Invalid email'),
   password: z.string('Password is required').min(8, 'Must be at least 8 characters'),
-  confirm_password: z.string('Password is required').min(8, 'Must be at least 8 characters')
-}).refine(data => data.password === data.confirm_password, {
+  confirmPassword: z.string('Password is required').min(8, 'Must be at least 8 characters')
+}).refine(data => data.password === data.confirmPassword, {
   message: 'Les mots de passe ne correspondent pas',
-  path: ['confirm_password']
+  path: ['confirmPassword']
 })
 
 type Schema = z.output<typeof schema>
 
-function onSubmit(payload: FormSubmitEvent<Schema>) {
+async function onSubmit(payload: FormSubmitEvent<Schema>) {
   registerLoading.value = true
-  console.log(payload)
+  const res = await Register(payload.data)
+  if (res === false) {
+    registerLoading.value = false
+  }
 }
 
-const fields: AuthFormField[] = [{
-  name: 'email',
-  type: 'email',
-  label: 'Email',
-  placeholder: 'Adresse e-mail',
-  required: true
-}, {
-  name: 'password',
-  label: 'Password',
-  type: 'password',
-  placeholder: 'Mot de passe',
-  required: true
-}, {
-  name: 'confirm_password',
-  label: 'Confirmer le mot de passe',
-  type: 'password',
-  placeholder: 'Confirmer le mot de passe',
-  required: true
-}]
+const fields: AuthFormField[] = [
+  {
+    name: 'firstName',
+    type: 'text',
+    label: 'Prénom',
+    placeholder: 'Prénom',
+    required: true
+  }, {
+    name: 'lastName',
+    type: 'text',
+    label: 'Nom de famille',
+    placeholder: 'Nom de famille',
+    required: true
+  }, {
+    name: 'email',
+    type: 'email',
+    label: 'Email',
+    placeholder: 'Adresse e-mail',
+    required: true
+  }, {
+    name: 'password',
+    label: 'Password',
+    type: 'password',
+    placeholder: 'Mot de passe',
+    required: true
+  }, {
+    name: 'confirmPassword',
+    label: 'Confirmer le mot de passe',
+    type: 'password',
+    placeholder: 'Confirmer le mot de passe',
+    required: true
+  }]
 </script>
