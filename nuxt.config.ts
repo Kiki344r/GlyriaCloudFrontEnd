@@ -15,6 +15,11 @@ export default defineNuxtConfig({
   ui: {
     colorMode: false
   },
+  runtimeConfig: {
+    public: {
+      api_url: process.env.API_URL
+    }
+  },
 
   compatibilityDate: '2025-01-15',
 
