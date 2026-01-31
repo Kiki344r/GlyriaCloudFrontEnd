@@ -60,7 +60,7 @@
 
 <script setup lang="ts">
 import * as z from 'zod'
-import type { FormSubmitEvent, AuthFormField } from '@nuxt/ui'
+import type { FormSubmitEvent, AuthFormField, ButtonProps } from '@nuxt/ui'
 
 const { Login } = useAuth()
 const toast = useToast()
@@ -76,9 +76,12 @@ const schema = z.object({
 
 type Schema = z.output<typeof schema>
 
-function onSubmit(payload: FormSubmitEvent<Schema>) {
+async function onSubmit(payload: FormSubmitEvent<Schema>) {
   loginLoading.value = true
-  console.log(payload)
+  const res = await Login(payload.data)
+  if (res === false) {
+    loginLoading.value = false
+  }
 }
 
 const fields: AuthFormField[] = [{
@@ -119,5 +122,5 @@ const providers = [{
   onClick: () => {
     toast.add({ title: 'GitHub', description: 'Login with GitHub' })
   }
-}]
+}] as ButtonProps[]
 </script>
