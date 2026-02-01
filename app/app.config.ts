@@ -10,10 +10,11 @@ export default defineAppConfig({
       neutral: 'slate',
       accent: 'pink'
     },
-    footerColumns: {
+    toast: {
       slots: {
-        label: 'text-white',
-        linkLabel: 'text-gray-400 hover:text-white transition-colors'
+        root: 'bg-dark ring-2 ring-gray-400/20',
+        title: 'text-white',
+        description: 'text-gray-400'
       }
     },
     authForm: {
@@ -22,11 +23,10 @@ export default defineAppConfig({
         description: 'text-gray-400'
       }
     },
-    toast: {
+    navigationMenu: {
       slots: {
-        root: 'bg-dark ring-2 ring-gray-400/20',
-        title: 'text-white',
-        description: 'text-gray-400'
+        link: 'hover:cursor-pointer',
+        linkLabel: 'text-gray-400 hover:text-white transition-colors w-full text-start'
       }
     }
   }
