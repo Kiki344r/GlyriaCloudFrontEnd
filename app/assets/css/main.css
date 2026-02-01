@@ -24,6 +24,9 @@ body {
 :root {
     --ui-text: #ffffff;
 }
+.dark {
+    --ui-bg: #0D0D0D;
+}
 
 .bg-dark {
   background-color: var(--eerie-black);
