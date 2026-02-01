@@ -1,0 +1,14 @@
+<template>
+  <div class="bg-dark h-screen w-screen">
+    <UDashboardGroup>
+      <DashboardSidebar />
+      <UDashboardPanel>
+        <NuxtPage />
+      </UDashboardPanel>
+    </UDashboardGroup>
+  </div>
+</template>
+
+<script setup lang="ts">
+
+</script>
