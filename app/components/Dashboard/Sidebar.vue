@@ -77,9 +77,9 @@
 import type { NavigationMenuItem } from '@nuxt/ui'
 
 const items: NavigationMenuItem[][] = [[{
-  label: 'Home',
+  label: 'Dashboard',
   icon: 'i-lucide-house',
-  active: true
+  to: '/dashboard'
 }, {
   label: 'Inbox',
   icon: 'i-lucide-inbox',
@@ -89,12 +89,13 @@ const items: NavigationMenuItem[][] = [[{
     label: '2'
   }
 }, {
-  label: 'Contacts',
+  label: 'Groupes',
+  to: '/dashboard/groupes',
   icon: 'i-lucide-users'
 }, {
-  label: 'Settings',
+  label: 'Parametres',
   icon: 'i-lucide-settings',
-  defaultOpen: true,
+  defaultOpen: false,
   children: [{
     label: 'General'
   }, {
