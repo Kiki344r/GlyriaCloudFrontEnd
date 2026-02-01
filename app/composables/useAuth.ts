@@ -1,3 +1,15 @@
+interface userData {
+  firstName: string
+  lastName: string
+  email: string
+  groups: {
+    UUID: string
+    name: string
+    ownerId: string
+  }[]
+  UUID: string
+}
+
 export default function useAuth() {
   const router = useRouter()
   const { requestPost, requestGet } = useApi()
@@ -17,13 +29,13 @@ export default function useAuth() {
         description: data?.message,
         color: 'error'
       })
-      localStorage.removeItem('useData')
+      localStorage.removeItem('userData')
       await cookieStore.delete('token')
       if (redirectIfExpired) return router.push('/login')
       return false
     }
 
-    localStorage.setItem('useData', JSON.stringify(data.data))
+    localStorage.setItem('userData', JSON.stringify(data.data))
     return true
   }
 
@@ -37,7 +49,7 @@ export default function useAuth() {
     if (!status || !res) return false
 
     if (res.success) {
-      localStorage.setItem('useData', res.data)
+      localStorage.setItem('userData', JSON.stringify(res.data))
 
       toast.add({
         title: 'Connexion réussie',
@@ -86,11 +98,15 @@ export default function useAuth() {
   const Account = () => {
     return {
       cache: function () {
-        return localStorage.getItem('useData')
+        const userData = localStorage.getItem('userData')
+        if (!userData) return null
+        return JSON.parse(userData) as userData
       },
       fetch: async () => {
         await verifyToken()
-        return localStorage.getItem('useData')
+        const userData = localStorage.getItem('userData')
+        if (!userData) return null
+        return JSON.parse(userData) as userData
       },
       isLoggedIn: async () => {
         return await verifyToken(false, false)
