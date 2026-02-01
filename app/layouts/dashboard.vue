@@ -4,6 +4,7 @@
       <DashboardSidebar />
       <UDashboardPanel>
         <NuxtPage />
+        <ModalGroupCode />
       </UDashboardPanel>
     </UDashboardGroup>
   </div>
