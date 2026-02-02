@@ -1,12 +1,12 @@
 <template>
   <div>
     <ModalDefault
-      v-model:open="open"
-      v-model:loading="loading"
-      v-model:disable-close="disableClose"
+      v-model:open="store.open"
+      v-model:loading="store.loading"
+      v-model:disable-close="store.disableClose"
       title="Code de groupe"
-      description="Veuillez saisir un code de groupe afin d'acceder à la plateforme. Ce code est fournie par votre formateur et est à usage unique."
-      :button="{ label: 'Button label', color: 'info', disabled: false }"
+      description="Veuillez saisir un code de groupe afin de rejoindre un groupe et acceder à des cours et examens. Ce code est fournie par votre formateur et est à usage unique."
+      :button="{ label: 'Rejoindre un groupe', color: 'primary', variant: 'outline', disabled: false, class: 'hidden' }"
       :zod-schema="zodSchema"
       :zod-state="zodState"
       @submit="onSubmit"
@@ -28,18 +28,15 @@
 import * as z from 'zod'
 import type { FormSubmitEvent } from '@nuxt/ui'
 
-const { Account } = useAuth()
-const { fetch: fetchUser } = Account()
-const user = await fetchUser()
-const { joinGroup } = useGroups()
+const { joinGroup, getGroupsRef, updateGroups } = useGroups()
+const store = useGroupCodeStore()
 
-const open = ref(false)
-const loading = ref(false)
-const disableClose = ref(false)
+await updateGroups()
+const groups = getGroupsRef()
 
-if (user && user.groups.length < 1) {
-  open.value = true
-  disableClose.value = true
+if (groups && groups.length < 1) {
+  store.open = true
+  store.disableClose = false
 }
 
 const zodSchema = z.object({
@@ -55,13 +52,14 @@ const onSubmit = async (event: FormSubmitEvent<Schema>) => {
   const group = await joinGroup(event.data.groupCode)
   if (group) {
     console.log('Joined group', group)
-    open.value = false
-    loading.value = false
-    disableClose.value = true
+    await updateGroups()
+    store.open = false
+    store.loading = false
+    store.disableClose = false
   } else {
     console.log('Failed to join group')
-    loading.value = false
-    disableClose.value = true
+    store.loading = false
+    store.disableClose = true
   }
 }
 const onClose = () => {
