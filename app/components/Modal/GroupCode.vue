@@ -56,13 +56,16 @@ const onSubmit = async (event: FormSubmitEvent<Schema>) => {
     store.open = false
     store.loading = false
     store.disableClose = false
+    zodState.groupCode = undefined
   } else {
     console.log('Failed to join group')
     store.loading = false
     store.disableClose = true
+    zodState.groupCode = undefined
   }
 }
 const onClose = () => {
   console.log('Modal closed')
+  zodState.groupCode = undefined
 }
 </script>
