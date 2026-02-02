@@ -1,9 +1,9 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  modules: ['@nuxt/ui', '@nuxt/eslint', // ,
-  // '@nuxt/hints',
+  modules: ['@nuxt/ui', // ,
+  '@nuxt/eslint', // '@nuxt/hints',
   // '@nuxt/a11y'
-    '@nuxt/image', '@pinia/nuxt'],
+  '@nuxt/image', '@pinia/nuxt', '@nuxtjs/device'],
   ssr: false,
 
   devtools: {
