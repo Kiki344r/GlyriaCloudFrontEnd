@@ -1,13 +1,16 @@
-interface groupData {
-  UUID: string
-  name: string
-  ownerId: string
-}
-
 export default function useGroups() {
-  const { requestPost, requestGet } = useApi()
-  const { Account } = useAuth()
+  const { requestPost, requestGet, requestDelete } = useApi()
   const toast = useToast()
+
+  const { groups } = useGroupsStore()
+
+  const updateGroups = async () => {
+    const newGroups = await getGroups()
+    if (!newGroups) return false
+    groups.length = 0
+    groups.push(...newGroups)
+    return true
+  }
 
   const joinGroup = async (code: string) => {
     const { status, data } = await requestPost({
@@ -28,6 +31,16 @@ export default function useGroups() {
     } else return false
   }
 
+  const leaveGroup = async (UUID: string) => {
+    const { status, data } = await requestDelete({
+      version: 1,
+      route: 'group/leave',
+      data: { groupId: UUID }
+    }, true)
+    if (!status || !data) return false
+    return data.success
+  }
+
   const getGroups = async () => {
     const { status, data } = await requestGet({
       version: 1,
@@ -37,8 +50,15 @@ export default function useGroups() {
     return data.data as groupData[]
   }
 
+  const getGroupsRef = (): groupData[] => {
+    return groups
+  }
+
   return {
     joinGroup,
-    getGroups
+    leaveGroup,
+    getGroups,
+    getGroupsRef,
+    updateGroups
   }
 }
