@@ -16,6 +16,8 @@
         :label="button.label"
         :color="button.color"
         :disabled="button.disabled"
+        :variant="button.variant"
+        :class="button.class"
         class="cursor-pointer"
       />
       <template #body>
@@ -62,8 +64,10 @@ const props = defineProps<{
   description: string
   button: {
     label: string
-    color: 'error' | 'primary' | 'secondary' | 'success' | 'info' | 'warning' | 'neutral' | undefined
-    disabled: boolean
+    color?: 'error' | 'primary' | 'secondary' | 'success' | 'info' | 'warning' | 'neutral' | undefined
+    disabled?: boolean
+    class?: string
+    variant?: 'solid' | 'outline' | 'ghost' | 'subtle' | 'link' | 'soft' | undefined
   }
   zodSchema: any
   zodState: any
