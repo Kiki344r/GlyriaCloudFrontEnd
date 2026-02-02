@@ -1,10 +1,22 @@
 <template>
   <div class="bg-dark h-screen w-screen">
-    <UDashboardGroup>
+    <div v-if="$device.isMobileOrTablet">
+      <h2 class="semi-bold text-center text-white text-3xl mt-20">
+        Votre appareil est indisponible pour le moment. <br>Veuillez utiliser un ordinateur.
+      </h2>
+    </div>
+    <UDashboardGroup v-else>
       <DashboardSidebar />
       <UDashboardPanel>
-        <NuxtPage />
-        <ModalGroupCode />
+        <template #header>
+          <DashboardNavbar />
+        </template>
+        <template #body>
+          <NuxtPage />
+        </template>
+        <template #footer>
+          <ModalGroupCode />
+        </template>
       </UDashboardPanel>
     </UDashboardGroup>
   </div>
