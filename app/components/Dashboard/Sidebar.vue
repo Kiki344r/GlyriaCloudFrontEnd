@@ -26,21 +26,22 @@
           Glyria Cloud
         </h2>
       </ULink>
-      <div v-else>
-        <ULink class="flex flex-col items-center gap-0.5">
+      <div
+        v-else
+        class="flex flex-col justify-center items-center w-full"
+      >
+        <ULink
+          class="flex flex-col justify-center items-center"
+          to="/"
+        >
           <lazy-nuxt-img
             src="/glyria-logo.png"
             alt="Glyria Logo"
-            class="h-6 w-6 rounded-2xl"
+            class="h-8 w-8 rounded-2xl"
             draggable="false"
           />
-          <UDashboardSidebarCollapse class="cursor-pointer" />
         </ULink>
       </div>
-      <UDashboardSidebarCollapse
-        v-if="!collapsed"
-        class="cursor-pointer"
-      />
     </template>
 
     <template #default="{ collapsed }">
@@ -57,7 +58,6 @@
         class="mt-auto"
       />
     </template>
-
     <template #footer="{ collapsed }">
       <UButton
         :avatar="{
