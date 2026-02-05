@@ -1,27 +1,22 @@
-interface userData {
-  firstName: string
-  lastName: string
-  email: string
-  groups: {
-    UUID: string
-    name: string
-    ownerId: string
-  }[]
-  UUID: string
-}
+import { useAccountStore } from '~/stores/account'
 
 export default function useAuth() {
   const router = useRouter()
   const { requestPost, requestGet } = useApi()
   const toast = useToast()
+  const store = useAccountStore()
+  const { account } = storeToRefs(store)
 
   const verifyToken = async (redirectIfExpired: boolean = false, enableToast: boolean = true) => {
     const { status, data } = await requestGet({
       version: 1,
       route: 'auth/me'
     }, enableToast)
-
-    if (!status || !data) return false
+    console.log('Verify token, status: ', status, ', data: ', data, '')
+    if (!status || !data) {
+      localStorage.removeItem('userData')
+      return false
+    }
 
     if (!data.success) {
       toast.add({
@@ -30,7 +25,6 @@ export default function useAuth() {
         color: 'error'
       })
       localStorage.removeItem('userData')
-      await cookieStore.delete('token')
       if (redirectIfExpired) return router.push('/login')
       return false
     }
@@ -95,21 +89,46 @@ export default function useAuth() {
     }
   }
 
+  const LogOut = async () => {
+    const { status } = await requestPost({
+      version: 1,
+      route: 'auth/logout'
+    })
+    if (!status) {
+      localStorage.removeItem('userData')
+      return
+    }
+    localStorage.removeItem('userData')
+    await Account().update()
+    toast.add({
+      title: 'Déconnexion réussie',
+      color: 'success'
+    })
+  }
+
   const Account = () => {
     return {
       cache: function () {
         const userData = localStorage.getItem('userData')
         if (!userData) return null
-        return JSON.parse(userData) as userData
+        return JSON.parse(userData) as accountData
       },
       fetch: async () => {
-        await verifyToken()
+        await verifyToken(false, false)
         const userData = localStorage.getItem('userData')
         if (!userData) return null
-        return JSON.parse(userData) as userData
+        return JSON.parse(userData) as accountData
       },
       isLoggedIn: async () => {
         return await verifyToken(false, false)
+      },
+      update: async () => {
+        const store = useAccountStore()
+        await store.update()
+        return true
+      },
+      ref: () => {
+        return account
       }
     }
   }
@@ -118,6 +137,7 @@ export default function useAuth() {
     verifyToken,
     Login,
     Register,
+    LogOut,
     Account
   }
 }
