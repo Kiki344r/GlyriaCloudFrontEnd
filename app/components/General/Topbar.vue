@@ -32,14 +32,7 @@
         Pourquoi nous
       </NuxtLink>
 
-      <UButton
-        color="primary"
-        variant="solid"
-        size="lg"
-        label="Se connecter"
-        class="cursor-pointer"
-        to="/login"
-      />
+      <ButtonAccount />
     </div>
   </div>
 </template>
