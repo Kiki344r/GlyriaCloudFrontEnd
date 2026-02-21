@@ -25,11 +25,12 @@ interface requestInternal {
 }
 
 export default function useApi() {
-  const runtimeConfig = useRuntimeConfig()
-  const apiUrl = runtimeConfig.public.api_url
   const toast = useToast()
 
   const requestInternal = async (data: requestInternal, enableToast: boolean = true) => {
+    const runtimeConfig = useRuntimeConfig()
+    const apiUrl = runtimeConfig.public.api_url
+
     try {
       let requestUrl = `${apiUrl}/v${data.version}/${data.route}`
 
