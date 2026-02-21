@@ -102,7 +102,6 @@ const onSubmit = (event: FormSubmitEvent<Schema>) => {
 
 const onClose = () => {
   emit('close')
-
   modelOpen.value = false
 }
 </script>
