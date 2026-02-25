@@ -106,5 +106,10 @@ const items: NavigationMenuItem[][] = [[{
   icon: 'i-lucide-info',
   to: 'https://github.com/nuxt/ui',
   target: '_blank'
+}, {
+  label: 'Status',
+  icon: 'i-lucide-circle-check',
+  to: 'https://status.glyria.app',
+  target: '_blank'
 }]]
 </script>

@@ -50,18 +50,16 @@ const zodState = reactive({
 const onSubmit = async (event: FormSubmitEvent<Schema>) => {
   console.log('Data', event)
   const group = await joinGroup(event.data.groupCode)
+  store.loading = false
+  zodState.groupCode = undefined
   if (group) {
     console.log('Joined group', group)
     await updateGroups()
     store.open = false
-    store.loading = false
     store.disableClose = false
-    zodState.groupCode = undefined
   } else {
     console.log('Failed to join group')
-    store.loading = false
     store.disableClose = true
-    zodState.groupCode = undefined
   }
 }
 const onClose = () => {

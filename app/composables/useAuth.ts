@@ -104,6 +104,26 @@ export default function useAuth() {
       title: 'Déconnexion réussie',
       color: 'success'
     })
+    if (window.location.pathname.startsWith('/dashboard')) router.push('/')
+  }
+
+  const ForgotPassword = async (data: { email: string }) => {
+    const { status, data: res } = await requestPost({
+      version: 1,
+      route: 'auth/forgot-password',
+      data
+    })
+    console.log('Forgot password, status: ', status, ', data: ', res, '')
+    if (!status || !res) return false
+    if (res.success) {
+      toast.add({
+        title: 'Mot de passe oublié',
+        description: 'Un lien de renitialisation de mot de passe a été envoyé à l\'adresse mail si un compte existe avec cette adresse.'
+      })
+      return true
+    } else {
+      return false
+    }
   }
 
   const Account = () => {
@@ -138,6 +158,7 @@ export default function useAuth() {
     Login,
     Register,
     LogOut,
+    ForgotPassword,
     Account
   }
 }

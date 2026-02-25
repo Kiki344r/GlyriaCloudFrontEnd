@@ -7,7 +7,6 @@
         description="Entrez vos identifiants pour vous connecter."
         icon="i-lucide-user"
         :fields="fields"
-        :providers="providers"
         :submit="{
           label: 'Se connecter',
           color: 'primary',
@@ -33,11 +32,7 @@
           >Retour à l'acceuil</ULink>
         </template>
         <template #password-hint>
-          <ULink
-            to="#"
-            class="text-primary font-medium"
-            tabindex="-1"
-          >Mot de passe oublié?</ULink>
+          <ModalForgotPassword />
         </template>
         <template #validation>
           <UAlert
@@ -69,8 +64,8 @@ const loginError = ref('')
 const loginLoading = ref(false)
 
 const schema = z.object({
-  email: z.email('Invalid email'),
-  password: z.string('Password is required').min(8, 'Must be at least 8 characters'),
+  email: z.email('Email invalide.'),
+  password: z.string('Mot de passe requis').min(8, 'La longueur doit être de 8caractères minimum.'),
   remember: z.boolean().optional()
 })
 
@@ -88,13 +83,13 @@ const fields: AuthFormField[] = [{
   name: 'email',
   type: 'email',
   label: 'Email',
-  placeholder: 'Enter your email',
+  placeholder: 'Entrez votre email',
   required: true
 }, {
   name: 'password',
   label: 'Password',
   type: 'password',
-  placeholder: 'Enter your password',
+  placeholder: 'Entrez votre mot de passe',
   required: true
 }, {
   name: 'remember',
