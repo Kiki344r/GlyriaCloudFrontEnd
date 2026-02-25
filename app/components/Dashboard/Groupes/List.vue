@@ -18,7 +18,7 @@
             class: 'cursor-pointer',
             onClick: () => {
               console.log('Clicked')
-              store.open = true
+              storeRef.open.value = true
             }
           }
         ]"
@@ -57,7 +57,7 @@
             class: 'cursor-pointer',
             onClick: () => {
               console.log('Clicked')
-              store.open = true
+              storeRef.open.value = true
             }
           }
         ]"
@@ -71,4 +71,5 @@ const { getGroupsRef } = useGroups()
 const groups = getGroupsRef()
 
 const store = useGroupCodeStore()
+const storeRef = storeToRefs(store)
 </script>

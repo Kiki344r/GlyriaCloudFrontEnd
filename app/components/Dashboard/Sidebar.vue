@@ -59,16 +59,7 @@
       />
     </template>
     <template #footer="{ collapsed }">
-      <UButton
-        :avatar="{
-          src: 'https://github.com/benjamincanac.png'
-        }"
-        :label="collapsed ? undefined : 'Benjamin'"
-        color="neutral"
-        variant="ghost"
-        class="w-full"
-        :block="collapsed"
-      />
+      <ButtonAccount />
     </template>
   </UDashboardSidebar>
 </template>
