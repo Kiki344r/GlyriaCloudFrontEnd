@@ -59,7 +59,9 @@
       />
     </template>
     <template #footer="{ collapsed }">
-      <ButtonAccount />
+      <ButtonAccount
+        :collapsed="collapsed"
+      />
     </template>
   </UDashboardSidebar>
 </template>

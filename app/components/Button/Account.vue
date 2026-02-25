@@ -11,7 +11,10 @@
         <UUser
           :name="account.firstName + ' ' + account.lastName"
           :avatar="{ src: '' }"
-          class="sm:flex hidden sm:flex-row cursor-pointer"
+          class="cursor-pointer"
+          :ui="{
+            name: props.collapsed ? 'text-transparent' : ''
+          }"
         />
       </UDropdownMenu>
     </div>
@@ -21,8 +24,11 @@
         variant="solid"
         size="lg"
         label="Se connecter"
-        class="cursor-pointer"
         to="/login"
+        class="cursor-pointer"
+        :ui="{
+          label: props.collapsed ? 'text-transparent' : ''
+        }"
       />
     </div>
   </div>
@@ -38,6 +44,10 @@ const account = Account().ref()
 await Account().update()
 
 console.log(account)
+
+const props = defineProps<{
+  collapsed: boolean | undefined
+}>()
 
 const LoginDropdownMenuItems = computed(() => [
   [
