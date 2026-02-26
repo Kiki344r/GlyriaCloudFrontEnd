@@ -118,7 +118,39 @@ export default function useAuth() {
     if (res.success) {
       toast.add({
         title: 'Mot de passe oublié',
-        description: 'Un lien de renitialisation de mot de passe a été envoyé à l\'adresse mail si un compte existe avec cette adresse.'
+        description: 'Un lien de rénitialisation de mot de passe a été envoyé à l\'adresse mail si un compte existe avec cette adresse.',
+        color: 'success'
+      })
+      return true
+    } else {
+      return false
+    }
+  }
+
+  const CheckPasswordCode = async (data: { code: string }) => {
+    const { status, data: res } = await requestPost({
+      version: 1,
+      route: 'auth/check-password-code',
+      data
+    }, false)
+    console.log('Check password code, status: ', status, ', data: ', res, '')
+    if (!status || !res) return false
+    return !!res.success
+  }
+
+  const ResetPassword = async (data: { code: string, password: string }) => {
+    const { status, data: res } = await requestPost({
+      version: 1,
+      route: 'auth/reset-password',
+      data
+    })
+
+    if (!status || !res) return false
+    if (res.success) {
+      toast.add({
+        title: 'Mot de passe rénitialisé',
+        description: 'Votre mot de passe a été rénitialisé, vous pouvez vous connecter avec votre nouveau mot de passe.',
+        color: 'success'
       })
       return true
     } else {
@@ -159,6 +191,8 @@ export default function useAuth() {
     Register,
     LogOut,
     ForgotPassword,
+    CheckPasswordCode,
+    ResetPassword,
     Account
   }
 }

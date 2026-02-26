@@ -4,7 +4,6 @@
       <UAuthForm
         :schema="schema"
         title="Connexion"
-        description="Entrez vos identifiants pour vous connecter."
         icon="i-lucide-user"
         :fields="fields"
         :submit="{
@@ -14,7 +13,6 @@
           class: 'cursor-pointer',
           loading: loginLoading
         }"
-        separator="Ou"
         :ui="{
           separator: 'text-white'
         }"
@@ -65,7 +63,7 @@ const loginLoading = ref(false)
 
 const schema = z.object({
   email: z.email('Email invalide.'),
-  password: z.string('Mot de passe requis').min(8, 'La longueur doit être de 8caractères minimum.'),
+  password: z.string('Mot de passe requis').min(8, 'La longueur doit être de 8 caractères minimum.'),
   remember: z.boolean().optional()
 })
 
@@ -87,7 +85,7 @@ const fields: AuthFormField[] = [{
   required: true
 }, {
   name: 'password',
-  label: 'Password',
+  label: 'Mot de passe',
   type: 'password',
   placeholder: 'Entrez votre mot de passe',
   required: true

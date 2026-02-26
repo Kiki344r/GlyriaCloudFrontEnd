@@ -32,7 +32,7 @@
           <div class="flex flex-row items-center gap-4 self-end">
             <UButton
               class="cursor-pointer"
-              label="Cancel"
+              label="Annuler"
               color="neutral"
               variant="outline"
               :disabled="disableClose"
@@ -40,7 +40,7 @@
             />
             <UButton
               class="cursor-pointer"
-              label="Submit"
+              label="Envoyer"
               color="neutral"
               type="submit"
               :loading="loading"
