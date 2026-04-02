@@ -74,7 +74,7 @@ export default function useAuth() {
     if (res.success) {
       toast.add({
         title: 'Compte créer avec succès',
-        description: `Vous pouvez vous connecter avec vos identifiants !`,
+        description: `Veuillez valider votre adresse mail pour activer votre compte ! Si vous ne voyez pas le mail, regardez dans les spams ou promotions.`,
         color: 'success'
       })
 
@@ -85,6 +85,26 @@ export default function useAuth() {
         description: res?.message,
         color: 'error'
       })
+      return false
+    }
+  }
+
+  const VerifyEmail = async (data: { token: string }) => {
+    const { status, data: res } = await requestPost({
+      version: 1,
+      route: 'auth/verify-email',
+      data
+    })
+    if (!status || !res) return false
+    if (res.success) {
+      localStorage.setItem('userData', JSON.stringify(res.data))
+      toast.add({
+        title: 'Adresse mail vérifiée',
+        description: 'Votre adresse mail a été vérifiée avec succès !',
+        color: 'success'
+      })
+      return true
+    } else {
       return false
     }
   }
@@ -189,6 +209,7 @@ export default function useAuth() {
     verifyToken,
     Login,
     Register,
+    VerifyEmail,
     LogOut,
     ForgotPassword,
     CheckPasswordCode,

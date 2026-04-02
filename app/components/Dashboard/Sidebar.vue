@@ -88,6 +88,7 @@ const items: NavigationMenuItem[][] = [[{
 }, {
   label: 'Parametres',
   icon: 'i-lucide-settings',
+  to: '/dashboard/settings',
   defaultOpen: false,
   children: [{
     label: 'General'
