@@ -42,6 +42,7 @@ export default function useApi() {
         credentials: 'include',
         body: data?.data || null
       }) as response
+      console.log('Response: ', res)
       return {
         status: true,
         data: res

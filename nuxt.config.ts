@@ -35,14 +35,5 @@ export default defineNuxtConfig({
         'cloud.glyria.app'
       ]
     }
-  },
-
-  eslint: {
-    config: {
-      stylistic: {
-        commaDangle: 'never',
-        braceStyle: '1tbs'
-      }
-    }
   }
 })

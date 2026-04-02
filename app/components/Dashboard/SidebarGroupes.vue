@@ -63,7 +63,16 @@
             orientation="vertical"
         />
 
-        <USeparator v-if="!collapsed" class="my-4 opacity-20"/>
+        <USeparator v-if="!collapsed" class="my-2 opacity-20"/>
+
+        <UNavigationMenu
+            :collapsed="collapsed"
+            :items="groupesNavigation"
+            orientation="vertical"
+            class="mt-auto pb-4"
+        />
+
+        <USeparator v-if="!collapsed" class="my-2 opacity-20"/>
 
         <UNavigationMenu
             :collapsed="collapsed"
@@ -87,6 +96,8 @@ import type {NavigationMenuItem} from '@nuxt/ui'
 
 const {getGroupsRef} = useGroups()
 const groups = getGroupsRef()
+
+const groupdId = useRoute().params.groupId as string
 
 // On sépare les items pour plus de clarté
 const mainNavigation: NavigationMenuItem[] = [
@@ -137,4 +148,19 @@ const secondaryNavigation: NavigationMenuItem[] = [
     }
   }
 ]
+
+const groupesNavigation: NavigationMenuItem[] = [
+  {
+    label: 'Mes Exercices',
+    icon: 'i-heroicons-command-line',
+    to: `/dashboard/groupes/${groupdId}/exercices`,
+    badge: {
+      color: 'primary',
+      variant: 'subtle',
+      label: '3',
+      size: 'xs'
+    }
+  },
+]
+
 </script>

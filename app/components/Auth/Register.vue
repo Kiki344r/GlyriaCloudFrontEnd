@@ -1,51 +1,96 @@
 <template>
-  <div>
-    <UPageCard class="w-full max-w-md bg-dark text-white p-5">
-      <UAuthForm
-        :schema="schema"
-        title="Créer un compte"
-        icon="i-lucide-user"
-        :fields="fields"
-        :submit="{
-          label: 'Créer un compte',
-          color: 'primary',
-          variant: 'subtle',
-          class: 'cursor-pointer',
-          loading: registerLoading
-        }"
-        separator="Ou"
-        :ui="{
-          separator: 'text-white'
-        }"
-        @submit="onSubmit"
-      >
-        <template #description>
-          Vous avez déjà un compte? <ULink
-            to="/login"
-            class="text-primary font-medium"
-          >Connectez-vous.</ULink>
-          <br>
-          <ULink
-            to="/"
-            class="text-primary font-medium"
-          >Retour à l'acceuil</ULink>
-        </template>
-        <template #validation>
-          <UAlert
-            v-if="registerError"
-            color="error"
-            icon="i-lucide-info"
-            :title="registerError"
-          />
-        </template>
-        <template #footer>
-          En créant votre compte vous acceptez nos <ULink
-            to="#"
-            class="text-primary font-medium"
-          >CGU</ULink>.
-        </template>
-      </UAuthForm>
-    </UPageCard>
+  <div class="min-h-screen flex items-center justify-center bg-dark relative overflow-hidden px-6">
+
+    <!-- background glow -->
+    <div class="absolute -top-40 -left-40 w-[500px] h-[500px] bg-primary/20 blur-[140px] rounded-full" />
+    <div class="absolute -bottom-40 -right-40 w-[500px] h-[500px] bg-purple-500/20 blur-[140px] rounded-full" />
+
+    <div class="relative w-full max-w-5xl grid lg:grid-cols-2 gap-10 items-center">
+
+      <!-- LEFT -->
+      <div class="hidden lg:flex flex-col gap-6 text-white">
+
+        <div class="flex items-center gap-2 text-sm text-gray-400">
+          <span class="text-green-400">●</span>
+          Create your Linux workspace
+        </div>
+
+        <h1 class="text-5xl font-semibold leading-tight">
+          Commence ton
+          <span class="text-primary">apprentissage Linux</span>
+          aujourd’hui
+        </h1>
+
+        <p class="text-gray-400 text-lg max-w-md">
+          Crée ton compte et accède à des VMs, cours interactifs et progression en temps réel.
+        </p>
+
+        <!-- fake system preview -->
+        <div class="bg-black/60 border border-white/10 rounded-xl p-4 font-mono text-sm text-green-400">
+          <p>user@glyria:~$ useradd student</p>
+          <p class="text-white/60">creating workspace...</p>
+          <p class="text-white/60">environment ready</p>
+        </div>
+
+      </div>
+
+      <!-- RIGHT -->
+      <UPageCard class="w-full bg-dark/60 border border-white/10 backdrop-blur text-white p-6 rounded-2xl">
+
+        <UAuthForm
+            :schema="schema"
+            title="Créer un compte"
+            icon="i-lucide-user-plus"
+            :fields="fields"
+            :submit="{
+            label: 'Créer un compte',
+            color: 'primary',
+            variant: 'solid',
+            loading: registerLoading
+          }"
+            :ui="{
+            wrapper: 'gap-4'
+          }"
+            @submit="onSubmit"
+        >
+
+          <!-- description -->
+          <template #description>
+            <p class="text-gray-400">
+              Déjà un compte ?
+              <ULink to="/login" class="text-primary font-medium">
+                Se connecter
+              </ULink>
+            </p>
+
+            <ULink to="/" class="text-sm text-gray-500 hover:text-white">
+              ← Retour à l’accueil
+            </ULink>
+          </template>
+
+          <!-- validation -->
+          <template #validation>
+            <UAlert
+                v-if="registerError"
+                color="error"
+                icon="i-lucide-alert-circle"
+                :title="registerError"
+                class="mt-2"
+            />
+          </template>
+
+          <!-- footer -->
+          <template #footer>
+            <p class="text-xs text-gray-500">
+              En créant ton compte, tu acceptes les CGU.
+            </p>
+          </template>
+
+        </UAuthForm>
+
+      </UPageCard>
+
+    </div>
   </div>
 </template>
 
@@ -59,11 +104,11 @@ const registerError = ref('')
 const registerLoading = ref(false)
 
 const schema = z.object({
-  firstName: z.string('First name is required'),
-  lastName: z.string('Last name is required'),
-  email: z.email('Invalid email'),
-  password: z.string('Password is required').min(8, 'Must be at least 8 characters'),
-  confirmPassword: z.string('Password is required').min(8, 'Must be at least 8 characters')
+  firstName: z.string().min(1, 'Prénom requis'),
+  lastName: z.string().min(1, 'Nom requis'),
+  email: z.email('Email invalide'),
+  password: z.string().min(8, '8 caractères minimum'),
+  confirmPassword: z.string().min(8, '8 caractères minimum')
 }).refine(data => data.password === data.confirmPassword, {
   message: 'Les mots de passe ne correspondent pas',
   path: ['confirmPassword']
@@ -73,10 +118,15 @@ type Schema = z.output<typeof schema>
 
 async function onSubmit(payload: FormSubmitEvent<Schema>) {
   registerLoading.value = true
+  registerError.value = ''
+
   const res = await Register(payload.data)
-  if (res === false) {
-    registerLoading.value = false
+
+  if (!res) {
+    registerError.value = "Erreur lors de la création du compte"
   }
+
+  registerLoading.value = false
 }
 
 const fields: AuthFormField[] = [
@@ -84,31 +134,36 @@ const fields: AuthFormField[] = [
     name: 'firstName',
     type: 'text',
     label: 'Prénom',
-    placeholder: 'Prénom',
+    placeholder: 'John',
     required: true
-  }, {
+  },
+  {
     name: 'lastName',
     type: 'text',
-    label: 'Nom de famille',
-    placeholder: 'Nom de famille',
+    label: 'Nom',
+    placeholder: 'Doe',
     required: true
-  }, {
+  },
+  {
     name: 'email',
     type: 'email',
     label: 'Email',
-    placeholder: 'Adresse e-mail',
+    placeholder: 'john@exemple.com',
     required: true
-  }, {
+  },
+  {
     name: 'password',
-    label: 'Password',
     type: 'password',
-    placeholder: 'Mot de passe',
+    label: 'Mot de passe',
+    placeholder: '••••••••',
     required: true
-  }, {
+  },
+  {
     name: 'confirmPassword',
-    label: 'Confirmer le mot de passe',
     type: 'password',
-    placeholder: 'Confirmer le mot de passe',
+    label: 'Confirmation',
+    placeholder: '••••••••',
     required: true
-  }]
+  }
+]
 </script>

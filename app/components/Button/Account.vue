@@ -9,12 +9,9 @@
         class="flex flex-row"
       >
         <UUser
-          :name="account.firstName + ' ' + account.lastName"
-          :avatar="{ src: '' }"
-          class="cursor-pointer"
-          :ui="{
-            name: props.collapsed ? 'text-transparent' : ''
-          }"
+          :name="props.collapsed ? undefined : account.firstName + ' ' + account.lastName"
+          :avatar="{ src: '', alt: account.firstName + ' ' + account.lastName }"
+          :class="['cursor-pointer', {'gap-0': props.collapsed}]"
         />
       </UDropdownMenu>
     </div>
@@ -23,12 +20,9 @@
         color="primary"
         variant="solid"
         size="lg"
-        label="Se connecter"
+        :label="props.collapsed ? undefined : 'Se connecter'"
         to="/login"
-        class="cursor-pointer"
-        :ui="{
-          label: props.collapsed ? 'text-transparent' : ''
-        }"
+        :class="['cursor-pointer', {'gap-0': props.collapsed}]"
       />
     </div>
   </div>

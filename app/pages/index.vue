@@ -2,7 +2,6 @@
   <div>
     <GeneralTopbar />
     <LandingPageHeroSection />
-    <LandingPageTerminal />
     <LandingPageFunctionality />
     <LandingPageWhyUs />
     <LandingPageStartNow />

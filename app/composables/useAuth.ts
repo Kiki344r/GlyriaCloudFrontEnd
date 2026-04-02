@@ -12,7 +12,6 @@ export default function useAuth() {
       version: 1,
       route: 'auth/me'
     }, enableToast)
-    console.log('Verify token, status: ', status, ', data: ', data, '')
     if (!status || !data) {
       localStorage.removeItem('userData')
       return false
@@ -40,10 +39,13 @@ export default function useAuth() {
       data
     })
 
+    console.log('Login, status: ', status, ', data: ', res, '')
+
     if (!status || !res) return false
 
     if (res.success) {
       localStorage.setItem('userData', JSON.stringify(res.data))
+      await store.update()
 
       toast.add({
         title: 'Connexion réussie',
@@ -137,8 +139,9 @@ export default function useAuth() {
     if (!status || !res) return false
     if (res.success) {
       toast.add({
-        title: 'Mot de passe oublié',
-        description: 'Un lien de rénitialisation de mot de passe a été envoyé à l\'adresse mail si un compte existe avec cette adresse.',
+        title: 'E-mail envoyé',
+        description: 'Vérifiez votre boîte de réception (et vos spams).',
+        icon: 'i-heroicons-paper-airplane',
         color: 'success'
       })
       return true
@@ -168,9 +171,10 @@ export default function useAuth() {
     if (!status || !res) return false
     if (res.success) {
       toast.add({
-        title: 'Mot de passe rénitialisé',
-        description: 'Votre mot de passe a été rénitialisé, vous pouvez vous connecter avec votre nouveau mot de passe.',
-        color: 'success'
+        title: 'Mot de passe mis à jour',
+        description: 'Vous pouvez maintenant vous connecter.',
+        color: 'success',
+        icon: 'i-heroicons-check-badge'
       })
       return true
     } else {

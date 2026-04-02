@@ -1,7 +1,7 @@
 <template>
   <div class="bg-dark h-screen w-screen">
     <UDashboardGroup>
-      <DashboardSidebar />
+      <DashboardSidebar-Groupes />
       <UDashboardPanel>
         <template #header>
           <DashboardNavbar />

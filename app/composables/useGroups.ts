@@ -17,7 +17,9 @@ export default function useGroups() {
       version: 1,
       route: 'group/join',
       data: { code }
-    })
+    }, true)
+
+    console.log('Join group, status: ', status, ', data: ', data, '')
 
     if (!status || !data) return false
 
@@ -50,14 +52,26 @@ export default function useGroups() {
     return data.data as groupData[]
   }
 
-  const getGroupsRef = (): groupData[] => {
-    return groups
+  const getGroupById = async (UUID: string) => {
+    const { status, data } = await requestGet({
+      version: 1,
+      route: 'groups/get',
+      options: { groupId: UUID }
+    }, false)
+    if (!status || !data) return false
+    return data.data as groupDataById
+  }
+
+  const getGroupsRef = (): Ref<groupData[]> => {
+    const groupStore = useGroupsStore()
+    return storeToRefs(groupStore).groups
   }
 
   return {
     joinGroup,
     leaveGroup,
     getGroups,
+    getGroupById,
     getGroupsRef,
     updateGroups
   }

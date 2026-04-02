@@ -1,69 +1,112 @@
 <template>
-  <div>
-    <UPageCard class="w-full max-w-md bg-dark text-white p-5">
-      <UAuthForm
-        :schema="schema"
-        title="Connexion"
-        icon="i-lucide-user"
-        :fields="fields"
-        :submit="{
-          label: 'Se connecter',
-          color: 'primary',
-          variant: 'subtle',
-          class: 'cursor-pointer',
-          loading: loginLoading
-        }"
-        :ui="{
-          separator: 'text-white'
-        }"
-        @submit="onSubmit"
-      >
-        <template #description>
-          Vous n'avez pas de compte? <ULink
-            to="/register"
-            class="text-primary font-medium"
-          >Créer un compte</ULink>.
-          <br>
-          <ULink
-            to="/"
-            class="text-primary font-medium"
-          >Retour à l'acceuil</ULink>
-        </template>
-        <template #password-hint>
-          <ModalForgotPassword />
-        </template>
-        <template #validation>
-          <UAlert
-            v-if="loginError"
-            color="error"
-            icon="i-lucide-info"
-            :title="loginError"
-          />
-        </template>
-        <template #footer>
-          En vous connectant vous acceptez nos <ULink
-            to="#"
-            class="text-primary font-medium"
-          >CGU</ULink>.
-        </template>
-      </UAuthForm>
-    </UPageCard>
+  <div class="min-h-screen flex items-center justify-center bg-dark relative overflow-hidden px-6">
+
+    <!-- background glow -->
+    <div class="absolute -top-40 -left-40 w-[500px] h-[500px] bg-primary/20 blur-[140px] rounded-full" />
+    <div class="absolute -bottom-40 -right-40 w-[500px] h-[500px] bg-purple-500/20 blur-[140px] rounded-full" />
+
+    <div class="relative w-full max-w-5xl grid lg:grid-cols-2 gap-10 items-center">
+
+      <!-- LEFT (branding) -->
+      <div class="hidden lg:flex flex-col gap-6 text-white">
+
+        <div class="flex items-center gap-2 text-sm text-gray-400">
+          <span class="text-green-400">●</span>
+          Secure Linux Training Platform
+        </div>
+
+        <h1 class="text-5xl font-semibold leading-tight">
+          Reprends ton
+          <span class="text-primary">apprentissage Linux</span>
+          maintenant
+        </h1>
+
+        <p class="text-gray-400 text-lg max-w-md">
+          Connecte-toi pour accéder à tes VMs, tes cours et ta progression en temps réel.
+        </p>
+
+        <!-- fake terminal -->
+        <div class="bg-black/60 border border-white/10 rounded-xl p-4 font-mono text-sm text-green-400">
+          <p>user@glyria:~$ ssh login</p>
+          <p class="text-white/60">authenticating...</p>
+          <p class="text-white/60">access ready</p>
+        </div>
+
+      </div>
+
+      <!-- RIGHT (form) -->
+      <UPageCard class="w-full bg-dark/60 border border-white/10 backdrop-blur text-white p-6 rounded-2xl">
+
+        <UAuthForm
+            :schema="schema"
+            title="Connexion"
+            icon="i-lucide-user"
+            :fields="fields"
+            :submit="{
+            label: 'Se connecter',
+            color: 'primary',
+            variant: 'solid',
+            loading: loginLoading
+          }"
+            @submit="onSubmit"
+        >
+
+          <!-- description -->
+          <template #description>
+            <p class="text-gray-400">
+              Pas de compte ?
+              <ULink to="/register" class="text-primary font-medium">
+                Créer un compte
+              </ULink>
+            </p>
+
+            <ULink to="/" class="text-sm text-gray-500 hover:text-white">
+              ← Retour à l’accueil
+            </ULink>
+          </template>
+
+          <!-- validation -->
+          <template #validation>
+            <UAlert
+                v-if="loginError"
+                color="error"
+                icon="i-lucide-alert-circle"
+                :title="loginError"
+                class="mt-2"
+            />
+          </template>
+
+          <template #password-hint>
+            <ModalForgotPassword />
+          </template>
+
+          <!-- footer -->
+          <template #footer>
+            <p class="text-xs text-gray-500">
+              En vous connectant, vous acceptez les CGU.
+            </p>
+          </template>
+
+        </UAuthForm>
+
+      </UPageCard>
+
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import * as z from 'zod'
-import type { FormSubmitEvent, AuthFormField, ButtonProps } from '@nuxt/ui'
+import type { FormSubmitEvent, AuthFormField } from '@nuxt/ui'
 
 const { Login } = useAuth()
-const toast = useToast()
 
 const loginError = ref('')
 const loginLoading = ref(false)
 
 const schema = z.object({
-  email: z.email('Email invalide.'),
-  password: z.string('Mot de passe requis').min(8, 'La longueur doit être de 8 caractères minimum.'),
+  email: z.email('Email invalide'),
+  password: z.string().min(8, '8 caractères minimum'),
   remember: z.boolean().optional()
 })
 
@@ -71,49 +114,36 @@ type Schema = z.output<typeof schema>
 
 async function onSubmit(payload: FormSubmitEvent<Schema>) {
   loginLoading.value = true
+  loginError.value = ''
+
   const res = await Login(payload.data)
-  if (res === false) {
-    loginLoading.value = false
+
+  if (!res) {
+    loginError.value = "Identifiants invalides"
   }
+
+  loginLoading.value = false
 }
 
-const fields: AuthFormField[] = [{
-  name: 'email',
-  type: 'email',
-  label: 'Email',
-  placeholder: 'Entrez votre email',
-  required: true
-}, {
-  name: 'password',
-  label: 'Mot de passe',
-  type: 'password',
-  placeholder: 'Entrez votre mot de passe',
-  required: true
-}, {
-  name: 'remember',
-  label: 'Se rappeler de moi',
-  type: 'checkbox'
-}]
-
-const providers = [{
-  label: 'Google',
-  icon: 'i-simple-icons-google',
-  color: 'secondary',
-  type: 'button',
-  variant: 'soft',
-  class: 'cursor-pointer',
-  onClick: () => {
-    toast.add({ title: 'Google', description: 'Login with Google' })
+const fields: AuthFormField[] = [
+  {
+    name: 'email',
+    type: 'email',
+    label: 'Email',
+    placeholder: 'ton@email.com',
+    required: true
+  },
+  {
+    name: 'password',
+    type: 'password',
+    label: 'Mot de passe',
+    placeholder: '••••••••',
+    required: true
+  },
+  {
+    name: 'remember',
+    type: 'checkbox',
+    label: 'Se souvenir de moi'
   }
-}, {
-  label: 'GitHub',
-  icon: 'i-simple-icons-github',
-  color: 'secondary',
-  type: 'button',
-  variant: 'soft',
-  class: 'cursor-pointer',
-  onClick: () => {
-    toast.add({ title: 'GitHub', description: 'Login with GitHub' })
-  }
-}] as ButtonProps[]
+]
 </script>

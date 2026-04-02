@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-dark flex flex-col justify-center items-center min-h-screen min-w-screen">
+  <div class="bg-dark justify-center items-center min-h-screen min-w-screen">
     <AuthLogin />
   </div>
 </template>

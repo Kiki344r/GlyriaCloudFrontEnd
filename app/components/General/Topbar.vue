@@ -1,42 +1,36 @@
-<template>
-  <div class="fixed z-100 top-0 left-0 w-full h-16 bg-dark shadow-xl shadow-cyan-50/10 flex items-center justify-around text-white">
-    <a
-      class="flex items-center gap-4 hover:rotate-2 hover:scale-110 transition duration-300 ease-in-out"
-      href="/"
-    >
-      <lazy-nuxt-img
-        src="/glyria-logo.png"
-        alt="Glyria Logo"
-        class="h-12 w-12 rounded-2xl"
-        draggable="false"
-      />
-      <h2><b>Glyria Cloud</b></h2>
-    </a>
-    <div class="flex items-center gap-4">
-      <NuxtLink
-        to="#terminal"
-        class="relative inline-block after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:w-0 after:bg-primary after:transition-all after:duration-300 hover:after:w-full"
-      >
-        Terminal
-      </NuxtLink>
-      <NuxtLink
-        to="#fonctionnalites"
-        class="relative inline-block after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:w-0 after:bg-primary after:transition-all after:duration-300 hover:after:w-full"
-      >
-        Fonctionnalités
-      </NuxtLink>
-      <NuxtLink
-        to="#pourquoi-nous"
-        class="relative inline-block after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:w-0 after:bg-primary after:transition-all after:duration-300 hover:after:w-full"
-      >
-        Pourquoi nous
-      </NuxtLink>
-
-      <ButtonAccount />
-    </div>
-  </div>
-</template>
-
 <script setup lang="ts">
-
 </script>
+<template>
+  <header class="fixed top-0 left-0 w-full h-16 bg-[#0B0F1A] border-b border-white/10 z-50 flex items-center shadow-2xl">
+    <div class="max-w-7xl mx-auto w-full px-6 flex items-center justify-between text-white">
+
+      <NuxtLink
+          to="/"
+          class="flex items-center gap-3 transition hover:opacity-80"
+      >
+        <img
+            src="/glyria-logo.png"
+            alt="Logo"
+            class="h-10 w-10 rounded-xl border border-white/20"
+        />
+        <span class="text-xl font-bold tracking-tight">
+          Glyria<span class="text-primary-400">Cloud</span>
+        </span>
+      </NuxtLink>
+
+      <nav class="hidden md:flex items-center gap-8">
+        <a href="#terminal" class="text-sm font-medium text-gray-400 hover:text-primary-400 transition-colors">Terminal</a>
+        <a href="#fonctionnalites" class="text-sm font-medium text-gray-400 hover:text-primary-400 transition-colors">Fonctionnalités</a>
+        <a href="#pourquoi-nous" class="text-sm font-medium text-gray-400 hover:text-primary-400 transition-colors">Pourquoi nous</a>
+      </nav>
+
+      <div class="flex items-center gap-4">
+        <ButtonAccount />
+
+      </div>
+
+    </div>
+  </header>
+
+  <div class="h-16"></div>
+</template>

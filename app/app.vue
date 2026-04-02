@@ -1,4 +1,4 @@
-<script setup>
+<script lang="ts" setup>
 useHead({
   meta: [
     { name: 'viewport', content: 'width=device-width, initial-scale=1' }
