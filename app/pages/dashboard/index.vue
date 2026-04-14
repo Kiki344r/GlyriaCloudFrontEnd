@@ -44,5 +44,5 @@
 <script setup lang="ts">
 const config = useRuntimeConfig()
 
-const downloadUrl = computed(() => config.public.downloadUrl ?? 'https://r2.glyria.app/GlyriaCloud_0.1.0_x64-setup.exe')
+const downloadUrl = computed(() => config.public.downloadUrl ?? 'https://github.com/Kiki344r/GlyriaCloudApp/releases/latest/download/GlyriaCloud_x64-setup.exe')
 </script>
